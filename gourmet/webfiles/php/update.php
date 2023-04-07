@@ -3,15 +3,16 @@ $dbh = new PDO("mysql:host=localhost;dbname=gourmet", "root", "");
 
 if (!empty($dbh)) {
 
-    $nomArt = $_POST["plat"];
-    $prixArt = $_POST['price'];
-    $ulrArt = $_POST['link'];
+    $nomEdit = $_POST["plat"];
+    $prixEdit = $_POST['price'];
+    $ulrEdit = $_POST['link'];
+    $restoEdit = $_POST['restaurant'];
 
-    $idArt = $_POST["id"];
+    $idEdit = $_POST["id"];
 
-    $requete = "UPDATE article
-    SET designation='$nomArt', img='$ulrArt', prix=$prixArt
-    WHERE id=$idArt";
+    $requete = "UPDATE dishes
+    SET plat='$nomEdit', img='$ulrEdit', prix=$prixEdit, restaurant='$restoEdit', description='lorem ipsum negatif'
+    WHERE id=$idEdit";
     $exec = $dbh->query($requete);
     $test = $exec->fetchAll(PDO::FETCH_ASSOC); 
 

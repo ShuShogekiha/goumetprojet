@@ -20,6 +20,7 @@
         $dbh = new PDO("mysql:host=localhost;dbname=gourmet", "root", "");
 
         if (!empty($dbh)) {
+
             $requete = "SELECT * FROM dishes";
             $exec = $dbh->query($requete);
             $test = $exec->fetchAll(PDO::FETCH_ASSOC);
@@ -30,14 +31,19 @@
                     <input type="hidden" value="<?php echo $tuple["id"] ?>" name="id">
                     <input type="submit" value="X">
                 </form>
+                <form action="./page/pageEdit.php" method="post">
+                    <input type="hidden" value="<?php echo $tuple["id"]?>" name="id">
+                    <input type="submit" value="modifier">
+                </form>
                 <?php
             }
         }
         ?>
 
     </main>
-    
+
     <?php include_once("./page/footer.php") ?>
+
 </body>
 
 </html>

@@ -12,15 +12,20 @@
 </head>
 
 <body>
-    <?php include_once("./header.php"); ?>
+    <?php include_once("./header.php");
+    $dbh = new PDO("mysql:host=localhost;dbname=amazoone", "root", "");
 
+    if (!empty($dbh)) {
+        $id = $_POST["id"];
+    }?>
 
-    <form action="../webfiles/php/create.php" method="POST">
+    <form action="../webfiles/php/update.php" method="POST">
         <input type="text" name="plat" placeholder="nom du plat">
         <input type="text" name="price" placeholder="prix du plat">
         <input type="url" name="link" placeholder="lien d'image du plat">
         <input type="text">
         <input type="search" name="restaurant" placeholder="ou trouver?">
+        <input type="hidden" name="id" value="<?php echo $id ?>">
         <input type="submit">
     </form>
 
