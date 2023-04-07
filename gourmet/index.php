@@ -1,49 +1,61 @@
-<!DOCTYPE html>
-<html lang="fr">
+<?php require_once("./page/header.php") ?>
+<main>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
-    <title>Le Gourmet: Acceuil</title>
-</head>
 
-<body>
+    <?php
 
-    <?php include_once("./page/header.php") ?>
+    require_once("./webfiles/php/connexion.php");
 
-    <main>
-        <?php
-        $dbh = new PDO("mysql:host=localhost;dbname=gourmet", "root", "");
 
-        if (!empty($dbh)) {
+    if ($dbh) {
+        $requete = "SELECT * FROM dishes";
+        $exec = $dbh->query($requete);
 
-            $requete = "SELECT * FROM dishes";
-            $exec = $dbh->query($requete);
+        if ($exec != false) {
+
             $test = $exec->fetchAll(PDO::FETCH_ASSOC);
 
-            foreach ($test as $tuple) {
-                ?>
-                <form action="./webfiles/php/delete.php" method="post">
-                    <input type="hidden" value="<?php echo $tuple["id"] ?>" name="id">
-                    <input type="submit" value="X">
-                </form>
-                <form action="./page/pageEdit.php" method="post">
-                    <input type="hidden" value="<?php echo $tuple["id"]?>" name="id">
-                    <input type="submit" value="modifier">
-                </form>
+    ?>
+            <section class="cardContainer">
+
                 <?php
-            }
-        }
+                foreach ($test as $tuple) {
+                ?>
+
+                    <div class="card">
+                        <form action="./webfiles/php/delete.php" method="POST">
+                            <input type="hidden" value="<?php echo $tuple["id"] ?>" name="id">
+                            <input type="button" value="X">
+                        </form>
+                        <img src="https://www.francebleu.fr/s3/cruiser-production/2019/08/71080297-32f4-49b3-8d2b-33ba080d1c30/1200x680_gettyimages-1146906219.jpg" alt="img">
+                        <div class="info">
+                            <p><?= $tuple["plat"] ?> - <?= $tuple["prix"] ?></p>
+                            <p>
+                                <?= $tuple["description"] ?>
+
+                            </p>
+                            <p>
+                                <?= $tuple["restaurant"] ?>
+
+                            </p>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
+            </section>
+        <?php
+        } else {
         ?>
+            <h1>Une erreur est survenue</h1>
+        <?php
+        }
+    } else {
+        ?>
+        <h1>Une erreur est survenue</h1>
+    <?php
+    }
+    ?>
 
-    </main>
-
-    <?php include_once("./page/footer.php") ?>
-
-</body>
-
-</html>
+</main>
+<?php require_once("./page/footer.php") ?>
