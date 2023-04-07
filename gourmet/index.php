@@ -20,6 +20,7 @@
 
                 <?php
                 foreach ($test as $tuple) {
+                    var_dump($tuple);
                 ?>
 
                     <div class="card">
@@ -27,7 +28,7 @@
                             <input type="hidden" value="<?php echo $tuple["id"] ?>" name="id">
                             <input type="button" value="X">
                         </form>
-                        <img src="https://www.francebleu.fr/s3/cruiser-production/2019/08/71080297-32f4-49b3-8d2b-33ba080d1c30/1200x680_gettyimages-1146906219.jpg" alt="img">
+                        <img src="<?= $tuple["img"] ?> " alt="illustration de <?= $tuple["plat"] ?>">
                         <div class="info">
                             <p><?= $tuple["plat"] ?> - <?= $tuple["prix"] ?></p>
                             <p>
@@ -35,7 +36,7 @@
 
                             </p>
                             <p>
-                                <?= $tuple["restaurant"] ?>
+                                Au restaurant : <?= $tuple["restaurant"] ?>
 
                             </p>
                         </div>
